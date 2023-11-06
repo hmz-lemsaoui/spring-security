@@ -8,15 +8,18 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-@Configuration
+
 @EnableWebSecurity
+@Configuration
 public class ApplicationSecurityConfig {
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authz) ->
-                        authz.anyRequest().authenticated())
-                .httpBasic(withDefaults());
+                .httpBasic(withDefaults())
+                .authorizeHttpRequests((requests) -> requests
+                        .anyRequest()
+                        .authenticated());
         return http.build();
     }
 
